@@ -1,4 +1,4 @@
-# Linked List Data Structures Documentation
+# Data Structures Documentation
 
 ## Table of Contents
 1. [Overview](#overview)
