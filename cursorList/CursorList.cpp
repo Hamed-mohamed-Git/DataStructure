@@ -18,11 +18,11 @@ CursorList::~CursorList() {
 }
 
 bool CursorList::listIsEmpty() const {
-	return head == nullptr;
+	return (head == nullptr);
 }
 
 bool CursorList::curIsEmpty() const {
-	return cursor == nullptr;
+	return (cursor == nullptr);
 }
 
 // ==============================
@@ -44,14 +44,14 @@ void CursorList::advance() {
 
 void CursorList::toEnd() {
 	toFirst();
-	while (!curIsEmpty() && cursor->next != nullptr)
+	while (!listIsEmpty() && cursor->next != nullptr)
 		advance();
 }
 
 bool CursorList::atEnd() const {
-	return listIsEmpty()
-	|| !curIsEmpty()
-	|| cursor->next == nullptr;
+	if (listIsEmpty()) return true;
+	if (curIsEmpty()) return false;
+	return (cursor->next == nullptr);
 }
 
 // ==============================
@@ -78,13 +78,20 @@ void CursorList::updateData(const int data) const {
 //           Insertion
 // ==============================
 void CursorList::insertFirst(const int &data) {
-	head = createNewNode(data);
+	NodePointer newNode = createNewNode(data);
+	newNode->next = head;
+	head = newNode;
 	cursor = head;
 	prev = nullptr;
 }
 
 void CursorList::insertAfter(const int &data)
 {
+	if (listIsEmpty()) {
+		insertFirst(data);
+		return;
+	}
+
 	NodePointer newNode = createNewNode(data);
 	newNode->next = cursor->next;
  	cursor->next = newNode;
@@ -94,6 +101,11 @@ void CursorList::insertAfter(const int &data)
 
 void CursorList::insertBefore(const int &data)
 {
+	if (atFirst() || listIsEmpty()) {
+		insertFirst(data);
+		return;
+	}
+
 	NodePointer newNode = createNewNode(data);
 	newNode->next = cursor;
     prev->next = newNode;
@@ -101,7 +113,13 @@ void CursorList::insertBefore(const int &data)
 }
 
 void CursorList::insertEnd(const int &data){
-	return listIsEmpty() ? insertFirst(data) : insertAfter(data);
+	if (listIsEmpty()) {
+		insertFirst(data);
+		return;
+	}
+
+	toEnd();
+	insertAfter(data);
 }
 
 void CursorList::orderInsert(const int &data){
@@ -168,11 +186,12 @@ bool CursorList::search(const int data)
 	return false;
 }
 
-void CursorList::traverse(){
-	toFirst();
-	while (!curIsEmpty()){
-		cout << cursor->data << endl;
-		advance();
+void CursorList::traverse() const {
+	const Node * current = head;
+	while (current != nullptr) {
+		cout << current->data;
+		if (current->next != nullptr) cout << ", ";
+		current = current->next;
 	}
 }
 

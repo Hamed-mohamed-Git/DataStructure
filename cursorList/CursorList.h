@@ -52,7 +52,7 @@ public:
     // ==============================
     static void displayMenu();
     bool search(int);
-    void traverse();
+    void traverse() const;
     void handleSelection(int selection);
 
 private:

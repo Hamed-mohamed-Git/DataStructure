@@ -28,10 +28,10 @@ inline void runListProgram() {
     int selection;
 
     List::displayMenu();
-    cout << endl << "Enter selection: ";
-    cin >> selection;
-
     while (true) {
+        cout << endl << "Enter selection: ";
+        cin >> selection;
+
         if (selection == 0) {
             cout << "Returning to main menu..." << endl;
             break;
@@ -44,12 +44,12 @@ inline void runListProgram() {
 inline void runCursorListProgram() {
     CursorList cursorList;
     int selection;
-
     CursorList::displayMenu();
-    cout << endl << "Enter selection: ";
-    cin >> selection;
 
     while (true) {
+        cout << endl << "Enter selection: ";
+        cin >> selection;
+
         if (selection == 0) {
             cout << "Returning to main menu..." << endl;
             break;
